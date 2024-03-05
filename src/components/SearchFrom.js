@@ -12,20 +12,20 @@ function SearchForm () {
     const userTimeHr = now.getHours();
     const userTimeMin = now.getMinutes();
 
-    useEffect(()=> {
-        if (clockHr > 12){
-            dispatch(setClockHr(12))
-        }
-        if (clockHr < 0){
-            dispatch(setClockHr(1))
-        }
-        if (clockMin > 59){
-            dispatch(setClockMin(59))
-        }
-        if (clockMin < 0){
-            dispatch(setClockMin(1))
-        }
-    },[clockHr, clockMin])
+    // useEffect(()=> {
+    //     if (clockHr > 12){
+    //         dispatch(setClockHr(13))
+    //     }
+    //     if (clockHr < 0){
+    //         dispatch(setClockHr(1))
+    //     }
+    //     if (clockMin > 59){
+    //         dispatch(setClockMin(59))
+    //     }
+    //     if (clockMin < 0){
+    //         dispatch(setClockMin(0))
+    //     }
+    // },[clockHr, clockMin])
 
     useEffect(() => {
         dispatch(setClockHr(userTimeHr))
@@ -37,11 +37,11 @@ function SearchForm () {
         }else{
             dispatch(setClockMin(roundedMinutes));
         }
+        if (userTimeHr < 11){
+            dispatch(setIsPm(false))
+        }
         if (userTimeHr >= 13){
             dispatch(setClockHr(userTimeHr - 12))
-        }
-        if (userTimeHr > 11){
-            dispatch(setIsPm(false))
         }
     }, [userTimeHr, userTimeMin])
     
@@ -54,18 +54,27 @@ function SearchForm () {
     };
 
     const handleAddHour = () => {
-        if (clockHr < 12) {
-            dispatch(setClockHr(clockHr+1))
+        // const modifiedHr = clockHr > 12 ? (clockHr - 12) : clockHr
+        const amPm = isPm ? "PM" : "AM" 
+        console.log(clockHr, clockMin, amPm)
+        const newTime = new Date(`2001-01-01 ${parseInt(clockHr+1)}:${parseInt(clockMin)}:00 ${amPm}`)
+        if(parseInt(newTime.getHours()) > 12){
+            dispatch(setClockHr(newTime.getHours() -12))
         }else{
-            dispatch(setClockHr(1))
+            dispatch(setClockHr(newTime.getHours()))
         }
+        console.log(newTime)
     }
     const handleSubtractHour = () => {
-        if (clockHr > 1){
-            dispatch(setClockHr(clockHr-1))
-        } else{
-            dispatch(setClockHr(12))
-        }
+        const amPm = isPm ? "PM" : "AM" 
+        console.log(clockHr, clockMin, amPm)
+        const newTime = new Date(`2001-01-01 ${parseInt(clockHr-1)}:${parseInt(clockMin)}:00 ${amPm}`)
+        if(parseInt(newTime.getHours()) > 12){
+                dispatch(setClockHr(newTime.getHours() -12))
+        }else{
+                dispatch(setClockHr(newTime.getHours()))
+            }
+        console.log(newTime)
     }
     const handleAddMin = () => {
         if (parseInt(clockMin) < 55) {
@@ -73,9 +82,6 @@ function SearchForm () {
         }else{
             dispatch(setClockMin("00"))
         }
-        // if (parseInt(clockMin) >= 0 || parseInt(clockMin) <= 9){
-        //     dispatch(setClockMin(clockMin.toString().padStart(2, '0')))
-        // }
     }
     const handleSubtractMin = () => {
         if (parseInt(clockMin) > 0 && parseInt(clockMin - 5) >= 0){
@@ -83,9 +89,6 @@ function SearchForm () {
         } else {
             dispatch(setClockMin(55))
         }
-        // if (parseInt(clockMin) >= 0 || parseInt(clockMin) <= 9){
-        //     dispatch(setClockMin(clockMin.toString().padStart(2, '0')))
-        // }
     }
 
     return(
@@ -105,7 +108,7 @@ function SearchForm () {
                     <div onClick={handleAddHour} className="text-3xl text bg-gray-700 border-2 border-b-0 border-solid rounded-t-lg border-orange-500 h-7 hover:bg-orange-500 flex items-start justify-center pt-1 px-4">
                         <button className="relative bottom-2 ">+</button>
                     </div>
-                    <input onChange={(event) => dispatch(setClockHr(event.target.value))} className="text-3xl bg-sky-950 border-solid border-r-2 border-l-2 text-center border-orange-500 w-14 h-14" value={clockHr} type="number" max="12" min="1" />
+                    <input onChange={(event) => dispatch(setClockHr(event.target.value))} className="text-3xl bg-sky-950 border-solid border-r-2 border-l-2 text-center border-orange-500 w-14 h-14" value={clockHr} type="number" />
                     <div onClick={handleSubtractHour} className="text-4xl text bg-gray-700 border-2 border-t-0 border-solid rounded-b-lg border-orange-500 h-7 hover:bg-orange-500 flex items-start justify-center pt-1 px-4">
                         <button className="relative bottom-3 ">-</button>
                     </div>                        
