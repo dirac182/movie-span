@@ -31,9 +31,11 @@ function SearchResults() {
         }  
     },[timeHr,timeMin, isPm, atTheater, movieSearchResults])
 
-    const endTimeDiv = <div className="text-center font-bold text-orange-500 text-4xl pt-7">
+    const endTimeDiv = endTime != "Invalid Date" ? <div className="text-center font-bold text-orange-500 text-4xl pt-7">
         <p>Your movie will end around {endTime}</p>
     </div>
+    : <div className="text-center font-bold text-orange-500 text-4xl pt-7"><p>{endTime}</p></div>
+
 
     const spinnerDiv = <div className="flex justify-center"><Watch color="#f97316"/></div>
       
