@@ -12,21 +12,6 @@ function SearchForm () {
     const userTimeHr = now.getHours();
     const userTimeMin = now.getMinutes();
 
-    // useEffect(()=> {
-    //     if (clockHr > 12){
-    //         dispatch(setClockHr(13))
-    //     }
-    //     if (clockHr < 0){
-    //         dispatch(setClockHr(1))
-    //     }
-    //     if (clockMin > 59){
-    //         dispatch(setClockMin(59))
-    //     }
-    //     if (clockMin < 0){
-    //         dispatch(setClockMin(0))
-    //     }
-    // },[clockHr, clockMin])
-
     useEffect(() => {
         dispatch(setClockHr(userTimeHr))
         dispatch(setClockMin(userTimeMin))
@@ -43,7 +28,7 @@ function SearchForm () {
         if (userTimeHr >= 13){
             dispatch(setClockHr(userTimeHr - 12))
         }
-    }, [userTimeHr, userTimeMin])
+    }, [])
     
     const handleTheaterToggle = (atTheater) => {
         dispatch(setAtTheater(atTheater));
@@ -54,40 +39,41 @@ function SearchForm () {
     };
 
     const handleAddHour = () => {
-        // const modifiedHr = clockHr > 12 ? (clockHr - 12) : clockHr
-        const amPm = isPm ? "PM" : "AM" 
-        console.log(clockHr, clockMin, amPm)
-        const newTime = new Date(`2001-01-01 ${parseInt(clockHr+1)}:${parseInt(clockMin)}:00 ${amPm}`)
+        const newTime = new Date(`2001-01-01 ${parseInt(clockHr+1)}:${parseInt(clockMin)}:00`)
         if(parseInt(newTime.getHours()) > 12){
             dispatch(setClockHr(newTime.getHours() -12))
         }else{
             dispatch(setClockHr(newTime.getHours()))
         }
-        console.log(newTime)
     }
     const handleSubtractHour = () => {
-        const amPm = isPm ? "PM" : "AM" 
-        console.log(clockHr, clockMin, amPm)
-        const newTime = new Date(`2001-01-01 ${parseInt(clockHr-1)}:${parseInt(clockMin)}:00 ${amPm}`)
+        const newTime = new Date(`2001-01-01 ${parseInt(clockHr-1)}:${parseInt(clockMin)}:00`)
         if(parseInt(newTime.getHours()) > 12){
                 dispatch(setClockHr(newTime.getHours() -12))
+        }else if (newTime.getHours() == 0){
+                dispatch(setClockHr(12))
         }else{
                 dispatch(setClockHr(newTime.getHours()))
             }
-        console.log(newTime)
     }
     const handleAddMin = () => {
-        if (parseInt(clockMin) < 55) {
-            dispatch(setClockMin(parseInt(clockMin)+5))
+        if ((parseInt(clockMin) +5) > 59){
+            const newTime = new Date(`2001-01-01 ${parseInt(clockHr)}:${0}:00`)
+            dispatch(setClockMin(newTime.toString().slice(19,21)))
         }else{
-            dispatch(setClockMin("00"))
+            const newTime = new Date(`2001-01-01 ${parseInt(clockHr)}:${parseInt(clockMin)+5}:00`)
+            console.log(newTime.toString().slice(19,21))
+            dispatch(setClockMin(newTime.toString().slice(19,21)))
         }
     }
     const handleSubtractMin = () => {
-        if (parseInt(clockMin) > 0 && parseInt(clockMin - 5) >= 0){
-            dispatch(setClockMin(parseInt(clockMin) -5))
-        } else {
-            dispatch(setClockMin(55))
+        if ((parseInt(clockMin) -5) < 0){
+            const newTime = new Date(`2001-01-01 ${parseInt(clockHr)}:${55}:00`)
+            dispatch(setClockMin(newTime.toString().slice(19,21)))
+        }else{
+            const newTime = new Date(`2001-01-01 ${parseInt(clockHr)}:${parseInt(clockMin)-5}:00`)
+            console.log(newTime)
+            dispatch(setClockMin(newTime.toString().slice(19,21)))
         }
     }
 

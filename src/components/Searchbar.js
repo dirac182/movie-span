@@ -22,7 +22,6 @@ function Searchbar () {
         }else{
             dispatch(toggleIsLoadingSearch(false))
         }
-        console.log(data, isLoading)
         dispatch(setSearchResults(data))
         if (data && data.length === 0){
             setNoResults(true)
