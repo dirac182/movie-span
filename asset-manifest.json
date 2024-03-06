@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/MovieSpan-WebApp/static/css/main.052ebed7.css",
+    "main.js": "/MovieSpan-WebApp/static/js/main.6d4c94a4.js",
+    "static/media/timerLogo.png": "/MovieSpan-WebApp/static/media/timerLogo.e9aafa4db1617a1fcea8.png",
+    "index.html": "/MovieSpan-WebApp/index.html",
+    "main.052ebed7.css.map": "/MovieSpan-WebApp/static/css/main.052ebed7.css.map",
+    "main.6d4c94a4.js.map": "/MovieSpan-WebApp/static/js/main.6d4c94a4.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.052ebed7.css",
+    "static/js/main.6d4c94a4.js"
+  ]
+}
