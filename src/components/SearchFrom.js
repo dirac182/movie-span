@@ -17,7 +17,7 @@ function SearchForm () {
         dispatch(setClockMin(userTimeMin))
         const roundedMinutes = (Math.ceil(userTimeMin / 5) * 5).toString().padStart(2, '0');
         if (roundedMinutes == 60){
-            dispatch(setClockMin(0))
+            dispatch(setClockMin("00"))
             dispatch(setClockHr(clockHr+1))
         }else{
             dispatch(setClockMin(roundedMinutes));
