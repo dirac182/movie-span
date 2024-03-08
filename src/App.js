@@ -9,12 +9,15 @@ function App () {
     const isSelected = useSelector(state => state.form.selectedMovie)
 
     return (
-        <div className="bg-sky-950 h-screen">
-            <div className="flex flex-col justify-center bg-sky-950 md:p-10">
+        <div className="flex flex-col bg-sky-950 min-h-screen">
+            <div className="flex-grow flex-col justify-center bg-sky-950 md:p-10 ">
                 <Title/>
                 <Searchbar/>
                 <SearchForm/>
                 {isSelected && <SearchResults/>}
+                
+            </div>
+            <div className="flex justify-end">
                 <Footer/>
             </div>
         </div>
