@@ -39,7 +39,7 @@ function SearchForm () {
     };
 
     const handleAddHour = () => {
-        const newTime = new Date(`2001-01-01 ${parseInt(clockHr+1)}:${parseInt(clockMin)}:00`)
+        const newTime = new Date(`01/01/2001 ${parseInt(clockHr+1)}:${parseInt(clockMin)}:00`)
         if(parseInt(newTime.getHours()) > 12){
             dispatch(setClockHr(newTime.getHours() -12))
         }else{
@@ -47,7 +47,7 @@ function SearchForm () {
         }
     }
     const handleSubtractHour = () => {
-        const newTime = new Date(`2001-01-01 ${parseInt(clockHr-1)}:${parseInt(clockMin)}:00`)
+        const newTime = new Date(`01/01/2001 ${parseInt(clockHr-1)}:${parseInt(clockMin)}:00`)
         if(parseInt(newTime.getHours()) > 12){
                 dispatch(setClockHr(newTime.getHours() -12))
         }else if (newTime.getHours() == 0){

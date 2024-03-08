@@ -18,7 +18,7 @@ function SearchResults() {
         console.log(endTime)
         if (timeToAdd){
             const amPm = isPm ? "PM" : "AM"
-            const newTime = new Date(`2000-01-01 ${parseInt(timeHr)}:${parseInt(timeMin)} ${amPm}`)
+            const newTime = new Date(`01/01/2001 ${parseInt(timeHr)}:${parseInt(timeMin)} ${amPm}`)
             if (atTheater){
                 const newSeconds = parseInt(timeToAdd) + 1380
                 newTime.setSeconds(newTime.getSeconds() + newSeconds)
@@ -31,7 +31,7 @@ function SearchResults() {
         }  
     },[timeHr,timeMin, isPm, atTheater, movieSearchResults])
 
-    const endTimeDiv = endTime != "Invalid Date" ? <div className="text-center font-bold text-orange-500 text-4xl pt-7">
+    const endTimeDiv = endTime != "Invalid Time" ? <div className="text-center font-bold text-orange-500 text-4xl pt-7">
         <p>Your movie will end around {endTime}</p>
     </div>
     : <div className="text-center font-bold text-orange-500 text-4xl pt-7"><p>{endTime}</p></div>
