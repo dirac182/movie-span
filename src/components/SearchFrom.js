@@ -58,20 +58,20 @@ function SearchForm () {
     }
     const handleAddMin = () => {
         if ((parseInt(clockMin) +5) > 59){
-            const newTime = new Date(`2001-01-01 ${parseInt(clockHr)}:${0}:00`)
+            const newTime = new Date(`01/01/2001 ${parseInt(clockHr)}:${0}:00`)
             dispatch(setClockMin(newTime.toString().slice(19,21)))
         }else{
-            const newTime = new Date(`2001-01-01 ${parseInt(clockHr)}:${parseInt(clockMin)+5}:00`)
+            const newTime = new Date(`01/01/2001 ${parseInt(clockHr)}:${parseInt(clockMin)+5}:00`)
             console.log(newTime.toString().slice(19,21))
             dispatch(setClockMin(newTime.toString().slice(19,21)))
         }
     }
     const handleSubtractMin = () => {
         if ((parseInt(clockMin) -5) < 0){
-            const newTime = new Date(`2001-01-01 ${parseInt(clockHr)}:${55}:00`)
+            const newTime = new Date(`01/01/2001 ${parseInt(clockHr)}:${55}:00`)
             dispatch(setClockMin(newTime.toString().slice(19,21)))
         }else{
-            const newTime = new Date(`2001-01-01 ${parseInt(clockHr)}:${parseInt(clockMin)-5}:00`)
+            const newTime = new Date(`01/01/2001 ${parseInt(clockHr)}:${parseInt(clockMin)-5}:00`)
             console.log(newTime)
             dispatch(setClockMin(newTime.toString().slice(19,21)))
         }
