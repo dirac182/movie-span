@@ -2,6 +2,7 @@ import Searchbar from "./components/Searchbar";
 import SearchForm from "./components/SearchFrom";
 import Title from "./components/Title";
 import SearchResults from "./components/SearchResults";
+import Footer from "./components/Footer";
 import { UseSelector, useSelector } from "react-redux";
 
 function App () {
@@ -9,11 +10,12 @@ function App () {
 
     return (
         <div className="bg-sky-950 h-screen">
-            <div className="flex flex-col justify-center bg-sky-950 p-10">
+            <div className="flex flex-col justify-center bg-sky-950 md:p-10">
                 <Title/>
                 <Searchbar/>
                 <SearchForm/>
                 {isSelected && <SearchResults/>}
+                <Footer/>
             </div>
         </div>
     )
