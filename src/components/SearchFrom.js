@@ -22,6 +22,10 @@ function SearchForm () {
         }else{
             dispatch(setClockMin(roundedMinutes));
         }
+        if(userTimeHr === 0){
+            dispatch(setClockHr(12))
+            dispatch(setIsPm(false))
+        }
         if (userTimeHr < 11){
             dispatch(setIsPm(false))
         }
