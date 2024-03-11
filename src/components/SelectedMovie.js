@@ -13,7 +13,7 @@ function SelectedMovie () {
     }
     
     const obj = isMovieSelected ? 
-    <div className="flex text-white items-center bg-gray-700 border-solid border-2 rounded-xl border-orange-500 md:w-fill md:p-2 px-5">
+    <div className="flex text-white items-center bg-gray-700 border-solid border-2 rounded-xl border-orange-500 md:w-fill md:p-2">
             <img style={{width:"55px", height:"85px", borderRadius: "10px"}} src={movieinfo.image}/>
             <p className="px-2 text-lg font-bold">{movieinfo.title}</p>
             <p className="pr-2">({movieinfo.year})</p>

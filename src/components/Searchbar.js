@@ -45,7 +45,7 @@ function Searchbar () {
     }
 
     const searchDropdown = searchResults ? searchResults.map((movie) => {
-        return <div key={movie.id} className="p-1 px-3 md:w-fill"><SearchDropdown title={movie.title} id={movie.id} image={movie.image} year={movie.releaseDate}/></div>
+        return <div key={movie.id} className="p-1 md:w-fill"><SearchDropdown title={movie.title} id={movie.id} image={movie.image} year={movie.releaseDate}/></div>
     })
     : null;
 
@@ -71,7 +71,7 @@ function Searchbar () {
                     <FaSearch/>
                 </div>
             </div>
-            <div className="flex flex-col md:w-4/5 md:flex-row md:flex-wrap justify-center">
+            <div className="flex flex-col px-6 md:w-4/5 md:flex-row md:flex-wrap justify-center">
                 {!isLoading && searchDropdown}
                 {isLoading && spinnerDiv}
                 {noResults && noResultsDiv}
