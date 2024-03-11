@@ -78,7 +78,7 @@ function SearchForm () {
     }
 
     return(
-    <div className="pt-5">    
+    <div className="pt-5 px-5">    
         <div className="text-white">
             <p className="text-center font-bold text-xl">Where are you watching?</p>
             <div className="flex justify-center">
