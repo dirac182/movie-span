@@ -45,7 +45,7 @@ function Searchbar () {
     }
 
     const searchDropdown = searchResults ? searchResults.map((movie) => {
-        return <div key={movie.id} className="p-1 md:w-fill"><SearchDropdown title={movie.title} id={movie.id} image={movie.image} year={movie.releaseDate}/></div>
+        return <div key={movie.id} className="p-1 px-3 md:w-fill"><SearchDropdown title={movie.title} id={movie.id} image={movie.image} year={movie.releaseDate}/></div>
     })
     : null;
 

@@ -27,7 +27,7 @@ function SearchDropdown({title, id, image, year}) {
     }
 
     return(
-        <div onClick={handleMovieClick} className="flex text-white items-center bg-gray-700 border-solid border-2 rounded-xl border-orange-500 hover:bg-gray-800 cursor-pointer md:w-fill md:p-2 px-5">
+        <div onClick={handleMovieClick} className="flex text-white items-center bg-gray-700 border-solid border-2 rounded-xl border-orange-500 hover:bg-gray-800 cursor-pointer md:w-fill md:p-2">
             <img style={{width:"55px", height:"85px", borderRadius: "10px"}} src={image}/>
             <p className="px-2 text-lg font-bold">{title}</p>
             <p className="pr-2">{releaseYear}</p>
