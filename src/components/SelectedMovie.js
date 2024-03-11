@@ -25,7 +25,7 @@ function SelectedMovie () {
     : <div/>
 
     return(
-        <div>
+        <div className="px-6">
             {obj}
         </div>
     )
