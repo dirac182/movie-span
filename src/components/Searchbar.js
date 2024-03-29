@@ -1,10 +1,9 @@
 import {useState, useEffect} from "react";
 import { FaSearch } from "react-icons/fa";
 import { MdOutlineCancel } from "react-icons/md";
-import { toggleIsLoadingSearch, setRecommendedResults, clearSearch, setSearchResults, setSearchTerm, useSearchMovieMutation, useSearchMovieIdMutation } from "../store";
+import { toggleIsLoadingSearch, clearSearch, setSearchResults, setSearchTerm, useSearchMovieMutation, useSearchMovieIdMutation } from "../store";
 import SearchDropdown from "./SearchDropdown";
 import { useDispatch, useSelector } from "react-redux";
-import RecommendedDropdown from "./RecommendedDropdown";
 import SelectedMovie from "./SelectedMovie";
 import { ThreeCircles } from "react-loader-spinner";
 
@@ -13,7 +12,6 @@ function Searchbar () {
     const searchTerm = useSelector(state => state.form.searchTerm)
     const searchResults = useSelector(state => state.form.searchResults)
     const [searchMovie, {data, isLoading}] = useSearchMovieMutation();
-    const [isRecResults, setIsRecResults] = useState(false)
     const [noResults, setNoResults] = useState(false)
 
     useEffect(() => {
@@ -32,7 +30,6 @@ function Searchbar () {
 
     const handleSearchButton = (event) => {
         event.preventDefault();
-        setIsRecResults(false)
         if(searchTerm.length >= 2){
            searchMovie(searchTerm)
         }else {

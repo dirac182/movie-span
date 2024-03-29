@@ -1,4 +1,4 @@
-import { setSelectedMovieInfo, useIdSearchMutation } from "../store";
+import { setSelectedMovieId, setSelectedMovieInfo, useIdSearchMutation } from "../store";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedMovieResults, toggleIsLoadingResults } from "../store";
 import { useEffect } from "react";
@@ -6,25 +6,35 @@ import { useEffect } from "react";
 function SearchDropdown({title, id, image, year}) {
     const dispatch = useDispatch();
     const releaseYear = year ? `(${year})`: ""
-    const [searchMovieId, {data, isLoading, isFetching, error, isSuccess}] = useIdSearchMutation();
-
-
+    // const [searchMovieId, {data, isLoading, isFetching, error, isSuccess}] = useIdSearchMutation();
+    
     const handleMovieClick = () => {
         console.log("dropdown clicked")
         dispatch(setSelectedMovieInfo({title,id,image,year}))
+        dispatch(setSelectedMovieId(id))
         // dispatch(toggleIsLoadingResults(true))
-        searchMovieId(id)
-        .then((data) => {
-            // Check the result or add more logging if needed
-            console.log(data.data);
-            dispatch(setSelectedMovieResults(data.data))
-            // dispatch(toggleIsLoadingResults(false))
-          })
-          .catch((error) => {
-            // Handle errors if necessary
-            console.error("searchMovieId mutation error:", error);
-          });
+        // searchMovieId(id)
+        // .then((data) => {
+        //     // Check the result or add more logging if needed
+        //     console.log(data.data);
+        //     dispatch(setSelectedMovieResults(data.data))
+        //     // dispatch(toggleIsLoadingResults(false))
+        //   })
+        //   .catch((error) => {
+        //     // Handle errors if necessary
+        //     console.error("searchMovieId mutation error:", error);
+        //   });
     }
+
+    // useEffect(() => {
+    //     console.log(isLoading, data, isFetching, error, isSuccess)
+    //     if (isLoading){
+    //         console.log(isLoading)
+    //     }
+    //     if (data){
+    //         console.log(data)
+    //     }
+    // },[data, isLoading, isFetching, error, isSuccess])
 
     return(
         <div onClick={handleMovieClick} className="flex text-white items-center bg-gray-700 border-solid border-2 rounded-xl border-orange-500 hover:bg-gray-800 cursor-pointer md:w-fill md:p-2">

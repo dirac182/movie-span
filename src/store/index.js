@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import {setupListeners} from "@reduxjs/toolkit/query";
 import { moviesApi } from './apis/movieApi';
-import { toggleIsLoadingSearch, toggleIsLoadingResults, setEndTime, setAtTheater, setIsPm, setClockHr, setClockMin, setSelectedMovieResults, clearSelected, setSelectedMovieInfo, setRecommendedResults, formReducer, setSearchResults, setSearchTerm, clearSearch } from './slices/FormSlice';
+import { setResultLists, setSelectedMovieId, toggleIsLoadingSearch, toggleIsLoadingResults, setEndTime, setAtTheater, setIsPm, setClockHr, setClockMin, setSelectedMovieResults, clearSelected, setSelectedMovieInfo, setRecommendedResults, formReducer, setSearchResults, setSearchTerm, clearSearch } from './slices/FormSlice';
 
 const store = configureStore({
     reducer: {
@@ -15,5 +15,5 @@ const store = configureStore({
 })
 
 setupListeners(store.dispatch);
-export { toggleIsLoadingSearch, toggleIsLoadingResults, setEndTime, setAtTheater, setIsPm, setClockHr, setClockMin, setSelectedMovieResults, clearSelected, setSelectedMovieInfo, setRecommendedResults, clearSearch, setSearchResults, setSearchTerm, store };
+export { setResultLists, setSelectedMovieId, toggleIsLoadingSearch, toggleIsLoadingResults, setEndTime, setAtTheater, setIsPm, setClockHr, setClockMin, setSelectedMovieResults, clearSelected, setSelectedMovieInfo, setRecommendedResults, clearSearch, setSearchResults, setSearchTerm, store };
 export { useSearchMovieMutation, useIdSearchMutation } from "./apis/movieApi";

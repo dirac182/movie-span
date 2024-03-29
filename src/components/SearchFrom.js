@@ -26,7 +26,7 @@ function SearchForm () {
             dispatch(setClockHr(12))
             dispatch(setIsPm(false))
         }
-        if (userTimeHr < 11){
+        if (userTimeHr <= 11){
             dispatch(setIsPm(false))
         }
         if (userTimeHr >= 13){

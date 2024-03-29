@@ -6,6 +6,7 @@ const formSlice = createSlice({
         searchTerm: "",
         searchResults: [],
         recommendedResults: [],
+        selectedMovieId: null,
         selectedMovie: false,
         selectedMovieInfo: [],
         selectedMovieResults: {},
@@ -15,9 +16,20 @@ const formSlice = createSlice({
         atTheater: true,    
         endTime: null,
         isLoadingSearch: false,
-        isLoadingResults: false
+        isLoadingResults: false,
+        genreList: [],
+        castList: [],
+        relatedMoviesList: []
     },
     reducers: {
+        setResultLists(state,action){
+            state.genreList = action.payload.genreList;
+            state.castList = action.payload.castList;
+            state.relatedMoviesList = action.payload.relatedMoviesList;
+        },
+        setSelectedMovieId(state,action){
+            state.selectedMovieId = action.payload;
+        },
         setSearchResults(state,action){
             state.searchResults = action.payload;
         },
@@ -41,6 +53,7 @@ const formSlice = createSlice({
             state.selectedMovieInfo = []
             state.searchTerm = ""
             state.endTime = null
+            state.selectedMovieId = null
         },
         setSelectedMovieResults(state,action){
             state.selectedMovieResults = action.payload
@@ -69,5 +82,5 @@ const formSlice = createSlice({
     }
 })
 
-export const { toggleIsLoadingSearch, toggleIsLoadingResults, setEndTime, setAtTheater, setIsPm, setClockHr, setClockMin, setSelectedMovieResults, clearSelected, setSelectedMovieInfo, setRecommendedResults, setSearchResults, setSearchTerm, clearSearch } = formSlice.actions; 
+export const { setResultLists, setSelectedMovieId, toggleIsLoadingSearch, toggleIsLoadingResults, setEndTime, setAtTheater, setIsPm, setClockHr, setClockMin, setSelectedMovieResults, clearSelected, setSelectedMovieInfo, setRecommendedResults, setSearchResults, setSearchTerm, clearSearch } = formSlice.actions; 
 export const formReducer = formSlice.reducer;

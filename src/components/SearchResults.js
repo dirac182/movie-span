@@ -1,7 +1,13 @@
 import { useSelector, useDispatch } from "react-redux"
-import { setEndTime } from "../store"
-import { useEffect } from "react"
+import { setEndTime, setSelectedMovieResults, setResultLists } from "../store"
+import { useEffect, useState } from "react"
 import { Watch } from "react-loader-spinner"
+import { useIdSearchMutation } from "../store"
+import { FaImdb } from "react-icons/fa";
+import { FaChevronDown } from "react-icons/fa";
+import { IoMdAdd } from "react-icons/io";
+import { useSpring, animated } from "react-spring";
+
 
 function SearchResults() {
     const dispatch = useDispatch()
@@ -11,11 +17,37 @@ function SearchResults() {
     const isPm = useSelector(state => state.form.isPm)
     const atTheater = useSelector(state => state.form.atTheater)
     const endTime = useSelector(state => state.form.endTime)
-    const isLoadingResults = useSelector(state => state.form.isLoadingResults)
+    const selectedMovieId = useSelector(state => state.form.selectedMovieId)
+    const castList = useSelector(state => state.form.castList)
+    const genreList = useSelector(state => state.form.genreList)
+    const relatedMovieList = useSelector(state => state.form.relatedMovieList)
+    const [searchMovieId, {data, isLoading, isSuccess}] = useIdSearchMutation();
+    const [accordionIsOpen, setAccordionIsOpen] = useState(false)
+
+    const toggleAccordion = () => {
+        setAccordionIsOpen(!accordionIsOpen)
+    }
+
+    const openAnimation = useSpring({
+        from: { opacity: "0", maxHeight: "0px" },
+        to: { opacity: "1", maxHeight: accordionIsOpen ? "1000px" : "0px" },
+        config: { duration: "300" }
+      });
+
+    const iconAnimation = useSpring({
+    from: {
+        transform: "rotate(0deg)",
+    },
+    to: {
+        transform: accordionIsOpen ? "rotate(45deg)" : "rotate(0deg)",
+    },
+    config: { duration: "120" }
+    });
 
     useEffect(() => {
-        const timeToAdd = movieSearchResults.movieRuntime
-        console.log(endTime)
+        console.log("MovieSearchResults: ",movieSearchResults)
+        const timeToAdd = movieSearchResults.runtime
+        // console.log(endTime)
         if (timeToAdd){
             const amPm = isPm ? "PM" : "AM"
             const newTime = new Date(`01/01/2001 ${parseInt(timeHr)}:${parseInt(timeMin)} ${amPm}`)
@@ -31,18 +63,67 @@ function SearchResults() {
         }  
     },[timeHr,timeMin, isPm, atTheater, movieSearchResults])
 
-    const endTimeDiv = endTime != "Invalid Time" ? <div className="text-center font-bold text-orange-500 text-4xl pt-7 px-5">
-        <p>Your movie will end around {endTime}</p>
+    useEffect(() => {
+        if (selectedMovieId){
+            console.log(selectedMovieId)
+            searchMovieId(selectedMovieId)
+        }
+    },[selectedMovieId])
+
+    useEffect(() => {
+        console.log(data,isLoading)
+        if (data){
+            console.log(data)
+            dispatch(setSelectedMovieResults(data))
+            dispatch(setResultLists({genreList: data.genreList, castList: data.castList, relatedMoviesList: data.relatedMoviesList}))
+        }
+    },[data,isLoading])
+
+    const endTimeDiv =
+    <div className="text-center p-5 md:w-2/5">
+        <p className="font-bold text-white text-3xl border-dotted border-8 border-orange-500 p-2 ">Your movie will end around {endTime}</p> 
     </div>
-    : <div className="text-center font-bold text-orange-500 text-4xl pt-7 px-5"><p>{endTime}</p></div>
 
+    const accordionButtonString = accordionIsOpen ? "Hide Movie Details" : "Show Movie Details"
 
-    const spinnerDiv = <div className="flex justify-center"><Watch color="#f97316"/></div>
+    const accordionDiv = 
+    <div className={`md:w-4/5 border-white pb-6 ${accordionIsOpen ? 'border-t-2' : 'border-t'}`}>
+        <animated.div className={"overflow-hidden"} style={openAnimation}>
+                <div className={`grid text-center p-5  transition-all duration-300 ease-out ${accordionIsOpen ? 'grid-rows-1 opacity-100 ' : 'grid-rows-none opacity-0'}`}>
+                    <p className="font-bold text-orange-500 text-4xl">{movieSearchResults.name}</p>
+                    <p className="text-white text-md md:text-xl pb-3">Directed by {movieSearchResults.director}</p>
+                    <div className="flex justify-center px-2">
+                        <div className="flex text-3xl text-yellow-500 self-center"><FaImdb/><p className="text-white text-sm md:text-lg self-center">Rating: {movieSearchResults.rating}/10</p></div>
+                        <div className="flex flex-wrap justify-center content-center px-5">
+                            {genreList.map((genre)=> { return <div className="text-white text-xs md:text-sm bg-gray-700 border-solid border-2 border-orange-500 rounded-lg mx-1 p-0.5 h-min self-center" key={genre.genre.text}>{genre.genre.text}</div> })}
+                        </div>
+                        <p className="text-white text-sm md:text-lg self-center">Runtime: {movieSearchResults.runtimeString}</p>
+                    </div>
+                    <p className="text-white text-sm md:text-lg pt-2">{movieSearchResults.plotText}</p>
+                    <p className="text-white text-lg md:text-xl pt-2">Main Cast</p>
+                    <div className="flex flex-wrap justify-center">
+                        {castList.map((cast)=> {const charName = cast.node.characters ? cast.node.characters[0].name : "N/A"; const imageLink = cast.node.name.primaryImage ? cast.node.name.primaryImage.url : "../images/no-image.jpg" ; return <div className="text-white text-xs bg-gray-700 border-solid border-2 border-orange-500 rounded-lg m-1 p-0.5" key={cast.node.name.id}><div className="flex justify-center "><img style={{width:"auto", height:"100px", borderRadius: "10px"}} src={imageLink}/></div><p>{cast.node.name.nameText.text} <br/> as {charName}</p></div> })}
+                    </div>
+                </div>
+            </animated.div>
+        <animated.div style={openAnimation}>
+            <div className={`flex justify-center border-t-2 border-white ${accordionIsOpen ? 'border-t-2' : 'border-t'}`}>
+                <button onClick={toggleAccordion} className="flex justify-center text-white bg-sky-950 border-x-2 border-b-2 rounded-b-full px-2 text-xl font-bold hover:bg-orange-500"><animated.i style={iconAnimation}><IoMdAdd /></animated.i>{accordionButtonString}<animated.i style={iconAnimation}><IoMdAdd /></animated.i></button>
+            </div>
+        </animated.div>
+    </div>
+    
+ const spinnerDiv = <div className="flex justify-center"><Watch color="#f97316"/></div>
       
    return(
         <div>
-            {endTime && endTimeDiv}
-            {!endTime && spinnerDiv}
+            <div className="flex justify-center">
+                {isLoading && spinnerDiv}
+                {!isLoading && endTimeDiv}
+            </div>
+            <div className="flex justify-center">
+                {!isLoading && accordionDiv}
+            </div>
         </div>
     )
 }

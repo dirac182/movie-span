@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const moviesApi = createApi({
     reducerPath: "movies",
     baseQuery: fetchBaseQuery({
-        baseUrl: "https://www.ph-zyx.com",
+        baseUrl: "http://localhost:5002",
         credentials: 'include',
     }),
     endpoints(builder) {

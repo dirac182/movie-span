@@ -13,19 +13,18 @@ function SelectedMovie () {
     }
     
     const obj = isMovieSelected ? 
-    <div className="flex text-white items-center bg-gray-700 border-solid border-2 rounded-xl border-orange-500 md:w-fill md:p-2">
+    <div className="flex text-white items-center bg-gray-700 border-solid border-2 rounded-xl border-orange-500 p-2 w-fit">
             <img style={{width:"55px", height:"85px", borderRadius: "10px"}} src={movieinfo.image}/>
             <p className="px-2 text-lg font-bold">{movieinfo.title}</p>
             <p className="pr-2">({movieinfo.year})</p>
-            <div onClick={handleRemoveSelected} className="px-4 hover:text-red-500 text-lg">
+            <div onClick={handleRemoveSelected} className="justify-self-end px-4 hover:text-red-500 text-lg">
                 <MdOutlineCancel/>
             </div>
-            
     </div>
     : <div/>
 
     return(
-        <div className="px-6">
+        <div className="flex justify-center px-6">
             {obj}
         </div>
     )
