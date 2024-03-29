@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const moviesApi = createApi({
     reducerPath: "movies",
     baseQuery: fetchBaseQuery({
-        baseUrl: "http://localhost:5002",
+        baseUrl: "http://moviespan-api-server-env.eba-uwx2hpec.us-east-1.elasticbeanstalk.com/",
         credentials: 'include',
     }),
     endpoints(builder) {
