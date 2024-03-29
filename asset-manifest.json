@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/movie-span/static/css/main.9a2f2f4d.css",
-    "main.js": "/movie-span/static/js/main.b1457de7.js",
+    "main.js": "/movie-span/static/js/main.7b323fe6.js",
     "static/media/timerLogo.png": "/movie-span/static/media/timerLogo.e9aafa4db1617a1fcea8.png",
     "index.html": "/movie-span/index.html",
     "main.9a2f2f4d.css.map": "/movie-span/static/css/main.9a2f2f4d.css.map",
-    "main.b1457de7.js.map": "/movie-span/static/js/main.b1457de7.js.map"
+    "main.7b323fe6.js.map": "/movie-span/static/js/main.7b323fe6.js.map"
   },
   "entrypoints": [
     "static/css/main.9a2f2f4d.css",
-    "static/js/main.b1457de7.js"
+    "static/js/main.7b323fe6.js"
   ]
 }
