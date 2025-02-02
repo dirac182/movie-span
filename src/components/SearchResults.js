@@ -4,7 +4,6 @@ import { useEffect, useState } from "react"
 import { Watch } from "react-loader-spinner"
 import { useIdSearchMutation } from "../store"
 import { FaImdb } from "react-icons/fa";
-import { FaChevronDown } from "react-icons/fa";
 import { IoMdAdd } from "react-icons/io";
 import { useSpring, animated } from "react-spring";
 
@@ -20,8 +19,7 @@ function SearchResults() {
     const selectedMovieId = useSelector(state => state.form.selectedMovieId)
     const castList = useSelector(state => state.form.castList)
     const genreList = useSelector(state => state.form.genreList)
-    const relatedMovieList = useSelector(state => state.form.relatedMovieList)
-    const [searchMovieId, {data, isLoading, isSuccess}] = useIdSearchMutation();
+    const [searchMovieId, {data, isLoading}] = useIdSearchMutation();
     const [accordionIsOpen, setAccordionIsOpen] = useState(false)
 
     const toggleAccordion = () => {
@@ -90,8 +88,8 @@ function SearchResults() {
     <div className={`md:w-4/5 border-white pb-6 ${accordionIsOpen ? 'border-t-2' : 'border-t'}`}>
         <animated.div className={"overflow-hidden"} style={openAnimation}>
                 <div className={`grid text-center p-5  transition-all duration-300 ease-out ${accordionIsOpen ? 'grid-rows-1 opacity-100 ' : 'grid-rows-none opacity-0'}`}>
-                    <p className="font-bold text-orange-500 text-4xl">{movieSearchResults.name}</p>
-                    <p className="text-white text-md md:text-xl pb-3">Directed by {movieSearchResults.director}</p>
+                    <a className="font-bold text-orange-500 text-4xl hover:underline" href={`https://www.imdb.com/title/${movieSearchResults.movieId}`} target="_blank" rel="noopener noreferrer">{movieSearchResults.name}</a>
+                    <p className="text-white text-md md:text-xl pb-3">Directed by <a className="hover:underline" target="_blank" rel="noopener noreferrer" href={`https://www.imdb.com/name/${movieSearchResults.directorId}`}>{movieSearchResults.director}</a> </p>
                     <div className="flex justify-center px-2">
                         <div className="flex text-3xl text-yellow-500 self-center"><FaImdb/><p className="text-white text-sm md:text-lg self-center">Rating: {movieSearchResults.rating}/10</p></div>
                         <div className="flex flex-wrap justify-center content-center px-5">
@@ -102,7 +100,7 @@ function SearchResults() {
                     <p className="text-white text-sm md:text-lg pt-2">{movieSearchResults.plotText}</p>
                     <p className="text-white text-lg md:text-xl pt-2">Main Cast</p>
                     <div className="flex flex-wrap justify-center">
-                        {castList.map((cast)=> {const charName = cast.node.characters ? cast.node.characters[0].name : "N/A"; const imageLink = cast.node.name.primaryImage ? cast.node.name.primaryImage.url : "../images/no-image.jpg" ; return <div className="text-white text-xs bg-gray-700 border-solid border-2 border-orange-500 rounded-lg m-1 p-0.5" key={cast.node.name.id}><div className="flex justify-center "><img style={{width:"auto", height:"100px", borderRadius: "10px"}} src={imageLink}/></div><p>{cast.node.name.nameText.text} <br/> as {charName}</p></div> })}
+                        {castList.map((cast)=> {const charName = cast.node.characters ? cast.node.characters[0].name : "N/A"; const imageLink = cast.node.name.primaryImage ? cast.node.name.primaryImage.url : "../images/no-image.jpg" ; return <a target="_blank" rel="noopener noreferrer" href={`https://www.imdb.com/name/${cast.node.name.id}`}><div className="text-white text-xs bg-gray-700 border-solid border-2 border-orange-500 rounded-lg m-1 p-0.5" key={cast.node.name.id}><div className="flex justify-center "><img alt="Cast memeber" style={{width:"auto", height:"100px", borderRadius: "10px"}} src={imageLink}/></div><p>{cast.node.name.nameText.text} <br/> as {charName}</p></div></a> })}
                     </div>
                 </div>
             </animated.div>
